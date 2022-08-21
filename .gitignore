@@ -11,7 +11,7 @@
 .idea
 *.iml
 out
-gradle.properties
+# gradle.properties
 
 gen### MicrosoftOffice template
 *.tmp
