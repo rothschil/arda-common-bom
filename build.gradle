@@ -9,12 +9,7 @@ apply from: 'dependencies.gradle'
 group project_group
 version project_version
 
-
-
 repositories {
-    maven{
-        url('E:\\Repertory\\RepositoryMaven')
-    }
     mavenCentral()
 }
 
@@ -118,19 +113,11 @@ dependencies {
 
 publishing {
     publications {
-//        maven(MavenPublication) {
-//            //通过java-platform生成BOM
-//            from components.javaPlatform
-//        }
         toSonaType(MavenPublication) {
             groupId  "$project.group"
             artifactId "$project.name"
             version "$project.version"
             from components.javaPlatform
-//            artifact bootJar
-//            artifact sourceTask
-//            artifact javaDocJar
-
             pom {
                 name = "rothschil-common"
                 description = "Pippin, was a Hobbit of the Shire, and one of Frodo Baggins' youngest, but closest friends. He was a member of the Fellowship of the Ring and later became the thirty-second Thain of the Shire"
