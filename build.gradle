@@ -1,0 +1,187 @@
+allprojects {
+    apply plugin: 'java-platform'
+    apply plugin: 'maven-publish'
+    apply plugin: 'signing'
+    apply plugin: 'jacoco'
+}
+apply from: 'dependencies.gradle'
+
+group project_group
+version project_version
+
+
+
+repositories {
+    maven{
+        url('E:\\Repertory\\RepositoryMaven')
+    }
+    mavenCentral()
+}
+
+// 默认为防止用户错误地引入依赖，而不是引入依赖约束，如果引入依赖会报错失败。
+// 通过这个配置可以让Gradle允许引入依赖，当然这是可选的
+javaPlatform {
+    allowDependencies()
+}
+
+
+dependencies {
+    api(
+            libraries.'commons-compress',
+            libraries.'commons-io',
+            libraries.'commons-lang3',
+            libraries.'commons-codec',
+
+            libraries.'mysql-connector-java',
+            libraries.'javax.servlet-api',
+            libraries.'fastjson',
+            libraries.'guava',
+            libraries.'javax-annotation',
+            libraries.'hutool-all'
+    )
+
+    api(libraries.'commons-configuration') {
+        exclude group: 'commons-logging', module: 'commons-logging'
+    }
+
+    api(libraries.'commons-text') {
+        exclude group: 'org.apache.commons', module: 'commons-lang3'
+    }
+
+    api(libraries.'spring-boot-starter-aop') {
+        exclude group: 'org.slf4j', module: 'slf4j-api'
+        exclude group: 'org.apache.logging.log4j', module: '*'
+        exclude group: "org.springframework.boot", module: 'spring-boot-starter'
+    }
+
+    api(libraries.'spring-boot-starter-thymeleaf') {
+        exclude group: 'org.slf4j', module: 'slf4j-api'
+        exclude group: 'org.thymeleaf', module: 'thymeleaf'
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
+    }
+
+    api(libraries.'thymeleaf') {
+        exclude group: 'org.slf4j', module: 'slf4j-api'
+    }
+
+    api('org.postgresql:postgresql')
+
+    api(libraries.'spring-boot-starter-logging') {
+//        exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
+        exclude group: 'org.slf4j', module: 'slf4j-api'
+    }
+
+    api(libraries.'spring-boot-starter-web') {
+        exclude group: 'org.slf4j', module: 'slf4j-api'
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
+        exclude group:'org.hibernate.validator', module: 'hibernate-validator'
+    }
+
+    api(libraries.'hibernateValidator'){
+        exclude group:'org.jboss.logging', module: 'jboss-logging'
+        exclude group:'com.fasterxml', module: 'classmate'
+    }
+
+    api(libraries.'druid-spring-boot-starter') {
+        exclude group: 'org.slf4j', module: 'slf4j-api'
+        exclude group: 'org.springframework.boot', module: 'spring-boot-autoconfigure'
+    }
+
+    api(libraries.'commons-fileupload') {
+        exclude group: 'commons-io', module: 'commons-io'
+    }
+
+    api(libraries.'spring-boot-starter'){
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+
+    api(libraries.'spring-boot-starter-jdbc')
+
+    api(libraries.'ojdbc6')
+    api(libraries.'slf4j-api')
+    api(libraries.'sigar')
+
+    api(libraries.'commons-httpclient') {
+        exclude group: 'commons-logging', module: 'commons-logging'
+        exclude group: 'commons-codec', module: 'commons-codec'
+    }
+
+    api(libraries."commons-net")
+
+    api("com.jcraft:jsch:0.1.55")
+
+    api('cn.smallbun.screw:screw-core:1.0.5'){
+        exclude group: 'org.freemarker',module : 'freemarker'
+        exclude group: 'com.alibaba',module : 'fastjson'
+    }
+}
+
+publishing {
+    publications {
+//        maven(MavenPublication) {
+//            //通过java-platform生成BOM
+//            from components.javaPlatform
+//        }
+        toSonaType(MavenPublication) {
+            groupId  "$project.group"
+            artifactId "$project.name"
+            version "$project.version"
+            from components.javaPlatform
+//            artifact bootJar
+//            artifact sourceTask
+//            artifact javaDocJar
+
+            pom {
+                name = "rothschil-common"
+                description = "Pippin, was a Hobbit of the Shire, and one of Frodo Baggins' youngest, but closest friends. He was a member of the Fellowship of the Ring and later became the thirty-second Thain of the Shire"
+                url = "https://github.com/rothschil/rothschil-common"
+
+                // 添加你的 git 仓库 信息
+                scm {
+                    connection= "scm:git:https://github.com/rothschil/rothschil-common.git"
+                    developerConnection= "scm:git:https://github.com/rothschil/rothschil-common.git"
+                    url= "https://github.com/rothschil/rothschil-common"
+                }
+
+                licenses {
+                    license {
+                        name ="The Apache License, Version 2.0"
+                        url ="http://www.apache.org/licenses/LICENSE-2.0.txt"
+                    }
+                }
+                developers {
+                    // 添加开发者描述
+                    developer {
+                        id ="rothschil"
+                        name ="rothschil"
+                        email ="wcngs@qq.com"
+                    }
+                }
+            }
+        }
+    }
+    repositories {
+
+        maven {
+            name 'snapshot'
+            url 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
+            credentials {
+                username(oss_name)
+                password(oss_password)
+            }
+        }
+
+        maven {
+            name 'release'
+            url 'https://s01.oss.sonatype.org/content/repositories/releases/'
+            credentials {
+                username(oss_name)
+                password(oss_password)
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.toSonaType
+}
