@@ -4,6 +4,7 @@ allprojects {
     apply plugin: 'signing'
     apply plugin: 'jacoco'
 }
+
 apply from: 'dependencies.gradle'
 
 group project_group
@@ -15,6 +16,7 @@ repositories {
 
 // 默认为防止用户错误地引入依赖，而不是引入依赖约束，如果引入依赖会报错失败。
 // 通过这个配置可以让Gradle允许引入依赖，当然这是可选的
+
 javaPlatform {
     allowDependencies()
 }
@@ -55,9 +57,9 @@ dependencies {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
     }
 
-    api(libraries.'thymeleaf') {
-        exclude group: 'org.slf4j', module: 'slf4j-api'
-    }
+//    api(libraries.'thymeleaf') {
+//        exclude group: 'org.slf4j', module: 'slf4j-api'
+//    }
 
     api('org.postgresql:postgresql')
 
@@ -69,13 +71,9 @@ dependencies {
     api(libraries.'spring-boot-starter-web') {
         exclude group: 'org.slf4j', module: 'slf4j-api'
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
-        exclude group:'org.hibernate.validator', module: 'hibernate-validator'
+//        exclude group:'org.hibernate.validator', module: 'hibernate-validator'
     }
 
-    api(libraries.'hibernateValidator'){
-        exclude group:'org.jboss.logging', module: 'jboss-logging'
-        exclude group:'com.fasterxml', module: 'classmate'
-    }
 
     api(libraries.'druid-spring-boot-starter') {
         exclude group: 'org.slf4j', module: 'slf4j-api'
