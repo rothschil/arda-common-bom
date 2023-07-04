@@ -10,8 +10,8 @@ ext.versions = [
         commonsNetVersion: '3.8.0',
         commonsconfigurationVersion:'1.10',
         // =============== End Common
-        hutoolVersion:'5.7.12',
-        guavaVersion:'30.1.1-jre',
+        hutoolVersion:'5.8.10',
+        guavaVersion:'31.1-jre',
 
         // BEGIN Data Base Version
         druidSpringBootStarterVersion:'1.2.3',
