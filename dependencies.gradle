@@ -21,7 +21,7 @@ ext.versions = [
         commonsHttpclientVersion:'3.1',
         fastjsonVersion:'1.2.83',
         slf4jVersion:'1.7.30',
-        sigarVersion:'1.6.4',
+        sigarVersion:'1.6.5.132',
         // SPRING
         springVersion:'5.3.7',
         knife4jVersion: '3.0.3',

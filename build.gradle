@@ -111,7 +111,7 @@ dependencies {
 
 publishing {
     publications {
-        toSonaType(MavenPublication) {
+        toOssType(MavenPublication) {
             groupId  "$project.group"
             artifactId "$project.name"
             version "$project.version"
@@ -147,14 +147,14 @@ publishing {
     }
     repositories {
 
-        maven {
-            name 'snapshot'
-            url 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
-            credentials {
-                username(oss_name)
-                password(oss_password)
-            }
-        }
+//        maven {
+//            name 'snapshot'
+//            url 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
+//            credentials {
+//                username(oss_name)
+//                password(oss_password)
+//            }
+//        }
 
         maven {
             name 'release'
@@ -168,5 +168,5 @@ publishing {
 }
 
 signing {
-    sign publishing.publications.toSonaType
+    sign publishing.publications.toOssType
 }
