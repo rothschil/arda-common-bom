@@ -17,6 +17,7 @@ ext.versions = [
         druidSpringBootStarterVersion:'1.2.3',
         mySqlVersion:'8.0.25',
         oracleVersion:'11.2.0.3',
+        postgresqlVersion:'9.4.1212.jre7',
         // END Data Base Version
         commonsHttpclientVersion:'3.1',
         fastjsonVersion:'1.2.83',
@@ -42,6 +43,7 @@ ext.libraries = [
 
         'druid-spring-boot-starter':"com.alibaba:druid-spring-boot-starter:${versions.druidSpringBootStarterVersion}",
         'ojdbc6':"com.oracle:ojdbc6:${versions.oracleVersion}",
+        'postgresql':"org.postgresql:postgresql:${versions.postgresqlVersion}",
         'mysql-connector-java':"mysql:mysql-connector-java:${versions.mySqlVersion}",
         'spring-boot-starter-web':"org.springframework.boot:spring-boot-starter-web:${versions.springBootVersion}",
         'spring-boot-starter':"org.springframework.boot:spring-boot-starter:${versions.springBootVersion}",

@@ -61,7 +61,7 @@ dependencies {
 //        exclude group: 'org.slf4j', module: 'slf4j-api'
 //    }
 
-    api('org.postgresql:postgresql')
+    api(libraries.'postgresql')
 
     api(libraries.'spring-boot-starter-logging') {
 //        exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
